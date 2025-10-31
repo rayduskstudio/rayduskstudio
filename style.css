@@ -15,12 +15,21 @@ body {
 .hero {
   position: relative;
   height: 100vh;
-  background: linear-gradient(to bottom right, #0b0c10, #1f2833);
+  background: radial-gradient(circle at 50% 50%, #1b1b1b, #0b0c10);
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
   overflow: hidden;
+}
+
+#particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
 }
 
 .hero .overlay {
@@ -29,30 +38,40 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at center, rgba(29, 54, 73, 0.2), rgba(0, 0, 0, 0.9));
-  animation: subtleGlow 8s infinite alternate;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 190, 70, 0.08), rgba(0, 0, 0, 0.8));
+  animation: slowPulse 10s ease-in-out infinite alternate;
+  z-index: 2;
 }
 
-@keyframes subtleGlow {
-  0% { background: radial-gradient(circle at 40% 40%, rgba(29, 54, 73, 0.2), rgba(0, 0, 0, 0.9)); }
-  100% { background: radial-gradient(circle at 60% 60%, rgba(29, 54, 73, 0.3), rgba(0, 0, 0, 0.9)); }
+@keyframes slowPulse {
+  0% { opacity: 0.7; }
+  100% { opacity: 1; }
 }
 
 .hero-content {
   position: relative;
-  z-index: 2;
+  z-index: 3;
 }
 
 .hero h1 {
   font-size: 4rem;
   font-weight: 700;
   letter-spacing: 2px;
+  color: #ffd97a;
+  text-shadow: 0 0 20px rgba(255, 215, 100, 0.4);
+  animation: shimmer 3s infinite linear;
+}
+
+@keyframes shimmer {
+  0% { text-shadow: 0 0 15px rgba(255, 215, 100, 0.3); }
+  50% { text-shadow: 0 0 25px rgba(255, 220, 150, 0.7); }
+  100% { text-shadow: 0 0 15px rgba(255, 215, 100, 0.3); }
 }
 
 .hero .tagline {
   font-size: 1.5rem;
   font-weight: 300;
-  color: #66fcf1;
+  color: #ffcb5c;
   margin-top: 10px;
 }
 
@@ -66,7 +85,7 @@ body {
   font-size: 2.5rem;
   text-align: center;
   margin-bottom: 50px;
-  color: #66fcf1;
+  color: #ffcb5c;
 }
 
 .project-grid {
@@ -76,7 +95,7 @@ body {
 }
 
 .project-card {
-  background-color: #1f2833;
+  background-color: #1f1f1f;
   padding: 30px;
   border-radius: 12px;
   text-align: center;
@@ -85,13 +104,13 @@ body {
 }
 
 .project-card:hover {
-  border-color: #66fcf1;
+  border-color: #ffcb5c;
   transform: translateY(-5px);
-  box-shadow: 0 0 20px rgba(102, 252, 241, 0.2);
+  box-shadow: 0 0 20px rgba(255, 215, 100, 0.2);
 }
 
 .project-thumb {
-  background: linear-gradient(to bottom, #45a29e, #0b0c10);
+  background: linear-gradient(to bottom, #ffcb5c, #0b0c10);
   height: 180px;
   border-radius: 8px;
   margin-bottom: 20px;
@@ -106,26 +125,26 @@ body {
 
 .about h2 {
   font-size: 2.5rem;
-  color: #66fcf1;
+  color: #ffcb5c;
   margin-bottom: 30px;
 }
 
 .about p {
   font-size: 1.2rem;
   line-height: 1.8;
-  color: #c5c6c7;
+  color: #e0e0e0;
 }
 
 /* Links */
 .links {
   padding: 80px 10%;
-  background-color: #1f2833;
+  background-color: #1f1f1f;
   text-align: center;
 }
 
 .links h2 {
   font-size: 2rem;
-  color: #66fcf1;
+  color: #ffcb5c;
   margin-bottom: 30px;
 }
 
@@ -137,13 +156,13 @@ body {
 
 .social {
   text-decoration: none;
-  color: #c5c6c7;
+  color: #e0e0e0;
   font-weight: 500;
   transition: color 0.3s;
 }
 
 .social:hover {
-  color: #66fcf1;
+  color: #ffcb5c;
 }
 
 /* Footer */

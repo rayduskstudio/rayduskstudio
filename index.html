@@ -1,68 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Raydusk Studio</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="icon" type="image/png" href="favicon.png">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raydusk Studio</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <script src="js/nav.js" defer></script>
 </head>
 <body>
-  <!-- Hero Section -->
-  <section class="hero">
-    <canvas id="particles"></canvas>
-    <div class="overlay"></div>
-    <div class="hero-content">
-      <h1>Raydusk Studio</h1>
-      <p class="tagline">Stories Beyond Reality</p>
-    </div>
-  </section>
+    <!-- HEADER -->
+    <header>
+        <div class="logo">Raydusk</div>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#projects">Projects</a>
+            <a href="#research">Research</a>
+            <a href="#journal">Journal</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
 
-  <!-- Projects Section -->
-  <section class="projects">
-    <h2>Upcoming Projects</h2>
-    <div class="project-grid">
-      <div class="project-card">
-        <div class="project-thumb"></div>
-        <h3>The Impatient Generation</h3>
-        <p>A cinematic 3D short exploring the modern rush for instant success.</p>
-      </div>
-      <div class="project-card">
-        <div class="project-thumb"></div>
-        <h3>Untitled Love Story</h3>
-        <p>An emotional tale of two dreamers chasing the light beyond struggle.</p>
-      </div>
-      <div class="project-card">
-        <div class="project-thumb"></div>
-        <h3>Behind the Light</h3>
-        <p>Documentary-style animation about the unseen world of creators.</p>
-      </div>
-    </div>
-  </section>
+    <!-- HERO SECTION -->
+    <section id="hero">
+        <video autoplay muted loop playsinline>
+            <source src="assets/videos/hero-loop.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="hero-content">
+            <h1>Raydusk</h1>
+            <p>Independent Studio for Motion Capture, Animation, and Visual Research</p>
+            <a href="#projects" class="enter-studio-btn">Enter Studio</a>
+        </div>
+    </section>
 
-  <!-- About Section -->
-  <section class="about">
-    <h2>About Raydusk Studio</h2>
-    <p>
-      Founded by a solo creator driven by emotion, realism, and storytelling, Raydusk Studio is where cinematic art meets heartfelt imagination. Every frame, every story is crafted with precision and passion — from concept to final render.
-    </p>
-  </section>
+    <!-- PROJECTS -->
+    <section id="projects">
+        <h2>Projects</h2>
+        <div class="grid">
+            <div class="project">
+                <img src="assets/images/hero-bg.png" alt="Raydusk Mocap">
+                <h3>Raydusk Mocap</h3>
+                <p>Real-time facial and body capture tools</p>
+            </div>
+            <div class="project">
+                <img src="assets/images/hero-bg.png" alt="NitinisUnrealistic">
+                <h3>NitinisUnrealistic</h3>
+                <p>3D Animated Shorts</p>
+            </div>
+            <div class="project">
+                <img src="assets/images/hero-bg.png" alt="Procedural Slum Project">
+                <h3>DIY Motion Capture</h3>
+                <p>Making my own DIY Mocap suit and HMC for marker based performance capture</p>
+            </div>
+        </div>
+    </section>
 
-  <!-- Links Section -->
-  <section class="links">
-    <h2>Connect</h2>
-    <div class="socials">
-      <a href="#" class="social">YouTube</a>
-      <a href="#" class="social">GitHub</a>
-      <a href="https://www.instagram.com/rayduskstudio" class="social">Instagram</a>
-    </div>
-  </section>
+    <!-- RESEARCH / JOURNAL -->
+    <section id="research">
+        <h2>Research / Journal</h2>
+        <div class="cards">
+            <div class="card">
+                <h3>Implementing Blender-like NDOF Camera in Qt</h3>
+                <p>Nov 2025</p>
+            </div>
+            <div class="card">
+                <h3>Building an Optical Mocap Prototype</h3>
+                <p>Nov 2025</p>
+            </div>
+        </div>
+    </section>
 
-  <footer>
-    <p>© 2025 Raydusk Studio. All Rights Reserved.</p>
-  </footer>
+    <!-- ABOUT -->
+    <section id="about">
+        <h2>About</h2>
+        <p>Raydusk is an independent studio focused on motion capture, animation, and visual research. We strive to push the boundaries of creativity and technology.</p>
+        <img src="assets/images/hero-bg.png" alt="About Raydusk">
+    </section>
 
-  <script src="script.js"></script>
+    <!-- FOOTER -->
+    <footer>
+        <p>contact@raydusk.com</p>
+        <p>© 2025 Raydusk Studio</p>
+    </footer>
 </body>
 </html>

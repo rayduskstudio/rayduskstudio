@@ -7,204 +7,361 @@
   <link rel="stylesheet" href="css/style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500&family=IBM+Plex+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" />
 </head>
 <body>
 
-  <!-- NOISE OVERLAY -->
-  <div class="noise" aria-hidden="true"></div>
-
-  <!-- SCAN LINE -->
-  <div class="scanline" aria-hidden="true"></div>
-
   <!-- NAV -->
   <nav class="nav" id="nav">
-    <a href="index.html" class="nav-logo">RAYDUSK</a>
+    <a href="index.html" class="nav-logo">
+      <span class="logo-bracket">[</span>RAYDUSK<span class="logo-bracket">]</span>
+    </a>
+    <div class="nav-meta">
+      <span class="nav-coord" id="mouse-coord">x:0000 y:0000</span>
+    </div>
     <div class="nav-links">
-      <a href="#about" class="nav-link">About</a>
-      <a href="#contact" class="nav-link">Contact</a>
+      <a href="#about" class="nav-link">01_about</a>
+      <a href="#contact" class="nav-link">02_contact</a>
     </div>
   </nav>
 
-  <!-- HERO -->
+  <!-- HERO CANVAS -->
   <section class="hero" id="hero">
+    <canvas id="field-canvas" aria-hidden="true"></canvas>
 
-    <div class="hero-bg" aria-hidden="true">
-      <div class="grid-lines"></div>
-      <div class="orb orb-1"></div>
-      <div class="orb orb-2"></div>
-      <div class="crosshair crosshair-tl"></div>
-      <div class="crosshair crosshair-br"></div>
-    </div>
-
-    <div class="hero-content">
-      <div class="hero-eyebrow">
-        <span class="tag">EST. 2025</span>
-        <span class="divider" aria-hidden="true">—</span>
-        <span class="tag">INDIA</span>
+    <div class="hero-ui" aria-hidden="true">
+      <!-- top-left: coordinate readout -->
+      <div class="ui-panel ui-tl">
+        <div class="panel-row"><span class="dim">CAM</span><span>001 / ORTHO</span></div>
+        <div class="panel-row"><span class="dim">FOV</span><span>72.0°</span></div>
+        <div class="panel-row"><span class="dim">RES</span><span id="res-val">0000×0000</span></div>
+        <div class="panel-row"><span class="dim">FPS</span><span id="fps-val">120</span></div>
       </div>
 
-      <h1 class="hero-title">
-        <span class="line line-1">RAY</span>
-        <span class="line line-2">DUSK</span>
-      </h1>
-
-      <div class="hero-descriptor">
-        <span class="descriptor-text">VFX · MOTION CAPTURE · CG</span>
-      </div>
-
-      <p class="hero-sub">
-        A studio built from first principles.<br />
-        The work is loading.
-      </p>
-
-      <div class="hero-cta">
-        <a href="#about" class="btn-primary">Enter</a>
-        <div class="status-badge">
-          <span class="status-dot"></span>
-          <span>Building</span>
+      <!-- top-right: matrix readout -->
+      <div class="ui-panel ui-tr">
+        <div class="matrix-label">PROJECTION MATRIX</div>
+        <div class="matrix-grid" id="proj-matrix">
+          <span>1.000</span><span>0.000</span><span>0.000</span><span>0.000</span>
+          <span>0.000</span><span>1.000</span><span>0.000</span><span>0.000</span>
+          <span>0.000</span><span>0.000</span><span>1.000</span><span>0.000</span>
+          <span>0.000</span><span>0.000</span><span>0.000</span><span>1.000</span>
         </div>
       </div>
+
+      <!-- bottom-left: axis legend -->
+      <div class="ui-panel ui-bl">
+        <div class="axis-item"><span class="axis-x">X</span><span class="dim">→ TRANSLATE</span></div>
+        <div class="axis-item"><span class="axis-y">Y</span><span class="dim">↑ ROTATE</span></div>
+        <div class="axis-item"><span class="axis-z">Z</span><span class="dim">· SCALE</span></div>
+      </div>
+
+      <!-- bottom-right: marker count -->
+      <div class="ui-panel ui-br">
+        <div class="panel-row"><span class="dim">MARKERS</span><span id="marker-count">000</span></div>
+        <div class="panel-row"><span class="dim">NODES</span><span id="node-count">000</span></div>
+        <div class="panel-row"><span class="dim">LATENCY</span><span>&lt;8ms</span></div>
+        <div class="status-online"><span class="dot"></span>TRACKING</div>
+      </div>
+
+      <!-- crosshair center -->
+      <div class="crosshair-center" aria-hidden="true">
+        <div class="ch-h"></div>
+        <div class="ch-v"></div>
+        <div class="ch-circle"></div>
+      </div>
     </div>
 
-    <div class="hero-counter" aria-hidden="true">
-      <span class="counter-label">SEQUENCE</span>
-      <span class="counter-value" id="counter">001</span>
+    <!-- main headline -->
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="mono-tag">RAYDUSK_STUDIO.INIT()</span>
+      </div>
+      <h1 class="hero-title">
+        <span class="ht-line">MOTION</span>
+        <span class="ht-line ht-line-out">CAPTURE</span>
+        <span class="ht-line">SYSTEM</span>
+      </h1>
+      <p class="hero-sub">
+        Optical · Infrared · Real-time<br/>
+        Engineering from first principles.
+      </p>
+      <a href="#about" class="btn-enter">
+        <span>ENTER_SPACE</span>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
     </div>
 
-    <div class="scroll-hint" aria-hidden="true">
-      <div class="scroll-line"></div>
+    <!-- scroll prompt -->
+    <div class="scroll-prompt" aria-hidden="true">
+      <div class="sp-line"></div>
+      <span class="sp-label">SCROLL</span>
     </div>
-
   </section>
 
-  <!-- ABOUT -->
+  <!-- ══ ABOUT ══ -->
   <section class="about" id="about">
     <div class="container">
 
-      <div class="section-label">
-        <span class="label-num">01</span>
-        <span class="label-text">WHAT THIS IS</span>
+      <div class="section-head">
+        <span class="sh-num">01</span>
+        <span class="sh-slash">/</span>
+        <span class="sh-title">WHAT_THIS_IS</span>
+        <div class="sh-line"></div>
       </div>
 
-      <div class="about-grid">
-        <div class="about-left">
-          <h2 class="about-title">Not a studio<br /><em>yet</em>.</h2>
-        </div>
-        <div class="about-right">
-          <p class="about-body">
-            Raydusk is being built — the hardware, the software, the pipeline. 
-            A professional optical motion capture system, engineered from the ground up. 
-            Everything you'll see here will be made, not bought.
+      <div class="about-layout">
+
+        <!-- left: text -->
+        <div class="about-text reveal">
+          <h2 class="about-h">A studio built<br/>from <em>equations</em>.</h2>
+          <p class="about-p">
+            Raydusk is not a software subscription.
+            Every camera, every node, every solver
+            is being engineered — hardware to pipeline.
+            A professional optical motion capture system,
+            assembled from first principles in India.
           </p>
-          <p class="about-body">
-            This page is a placeholder for something real.
+          <p class="about-p">
             The portfolio opens when the system is ready.
+            This page is a coordinate in time.
           </p>
-          <div class="about-specs">
-            <div class="spec">
-              <span class="spec-label">Focus</span>
-              <span class="spec-value">Optical MoCap · VFX Pipeline</span>
-            </div>
-            <div class="spec">
-              <span class="spec-label">Location</span>
-              <span class="spec-value">India</span>
-            </div>
-            <div class="spec">
-              <span class="spec-label">Status</span>
-              <span class="spec-value spec-active">In Development</span>
-            </div>
-          </div>
         </div>
-      </div>
 
-      <div class="progress-bar-wrap">
-        <div class="progress-bar-label">
-          <span>System Progress</span>
-          <span>Phase 1 of 3</span>
+        <!-- right: xray skeleton diagram -->
+        <div class="skeleton-wrap reveal reveal-delay-1">
+          <svg class="skeleton-svg" viewBox="0 0 320 480" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Motion capture skeleton diagram">
+            <!-- grid background -->
+            <defs>
+              <pattern id="skgrid" width="20" height="20" patternUnits="userSpaceOnUse">
+                <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(0,255,180,0.06)" stroke-width="0.5"/>
+              </pattern>
+            </defs>
+            <rect width="320" height="480" fill="url(#skgrid)"/>
+
+            <!-- scan line animation -->
+            <rect class="sk-scan" x="0" y="0" width="320" height="2" fill="rgba(0,255,180,0.3)"/>
+
+            <!-- coordinate axes -->
+            <line x1="20" y1="460" x2="80" y2="460" stroke="rgba(255,80,80,0.6)" stroke-width="1"/>
+            <line x1="20" y1="460" x2="20" y2="400" stroke="rgba(80,200,255,0.6)" stroke-width="1"/>
+            <text x="84" y="463" font-family="IBM Plex Mono" font-size="8" fill="rgba(255,80,80,0.7)">X</text>
+            <text x="16" y="397" font-family="IBM Plex Mono" font-size="8" fill="rgba(80,200,255,0.7)">Y</text>
+
+            <!-- SKELETON — joints as circles, bones as lines -->
+            <!-- HEAD -->
+            <circle class="sk-joint" cx="160" cy="50" r="5" stroke="#00ffb4" stroke-width="1" fill="none"/>
+            <circle class="sk-joint" cx="160" cy="50" r="9" stroke="rgba(0,255,180,0.2)" stroke-width="1" fill="none"/>
+            <!-- label -->
+            <text x="172" y="53" font-family="IBM Plex Mono" font-size="7" fill="rgba(0,255,180,0.5)">HEAD.0</text>
+
+            <!-- NECK -->
+            <line class="sk-bone" x1="160" y1="55" x2="160" y2="80" stroke="#00ffb4" stroke-width="1" stroke-dasharray="2 2"/>
+            <circle class="sk-joint" cx="160" cy="80" r="3.5" stroke="#00ffb4" stroke-width="1" fill="none"/>
+
+            <!-- SHOULDERS -->
+            <line class="sk-bone" x1="160" y1="80" x2="100" y2="105" stroke="#00ffb4" stroke-width="1"/>
+            <circle class="sk-joint" cx="100" cy="105" r="4" stroke="#00ffb4" stroke-width="1" fill="none"/>
+            <line class="sk-bone" x1="160" y1="80" x2="220" y2="105" stroke="#00ffb4" stroke-width="1"/>
+            <circle class="sk-joint" cx="220" cy="105" r="4" stroke="#00ffb4" stroke-width="1" fill="none"/>
+            <text x="60" y="103" font-family="IBM Plex Mono" font-size="7" fill="rgba(0,255,180,0.5)">LSHLDR</text>
+            <text x="224" y="103" font-family="IBM Plex Mono" font-size="7" fill="rgba(0,255,180,0.5)">RSHLDR</text>
+
+            <!-- SPINE -->
+            <line class="sk-bone" x1="160" y1="80" x2="160" y2="200" stroke="#00ffb4" stroke-width="1.5"/>
+            <circle class="sk-joint" cx="160" cy="130" r="2.5" stroke="#00ffb4" stroke-width="0.8" fill="none"/>
+            <circle class="sk-joint" cx="160" cy="165" r="2.5" stroke="#00ffb4" stroke-width="0.8" fill="none"/>
+            <circle class="sk-joint" cx="160" cy="200" r="4" stroke="#00ffb4" stroke-width="1" fill="none"/>
+
+            <!-- UPPER ARMS -->
+            <line class="sk-bone" x1="100" y1="105" x2="72" y2="160" stroke="#00ffb4" stroke-width="1"/>
+            <circle class="sk-joint" cx="72" cy="160" r="3.5" stroke="#00ffb4" stroke-width="1" fill="none"/>
+            <line class="sk-bone" x1="220" y1="105" x2="248" y2="160" stroke="#00ffb4" stroke-width="1"/>
+            <circle class="sk-joint" cx="248" cy="160" r="3.5" stroke="#00ffb4" stroke-width="1" fill="none"/>
+
+            <!-- FOREARMS -->
+            <line class="sk-bone" x1="72" y1="160" x2="55" y2="215" stroke="#00ffb4" stroke-width="1"/>
+            <circle class="sk-joint" cx="55" cy="215" r="3" stroke="#00ffb4" stroke-width="1" fill="none"/>
+            <line class="sk-bone" x1="248" y1="160" x2="265" y2="215" stroke="#00ffb4" stroke-width="1"/>
+            <circle class="sk-joint" cx="265" cy="215" r="3" stroke="#00ffb4" stroke-width="1" fill="none"/>
+
+            <!-- HANDS -->
+            <line class="sk-bone" x1="55" y1="215" x2="45" y2="240" stroke="rgba(0,255,180,0.5)" stroke-width="0.8" stroke-dasharray="2 2"/>
+            <circle class="sk-joint" cx="45" cy="240" r="2" stroke="#00ffb4" stroke-width="0.8" fill="none"/>
+            <line class="sk-bone" x1="265" y1="215" x2="275" y2="240" stroke="rgba(0,255,180,0.5)" stroke-width="0.8" stroke-dasharray="2 2"/>
+            <circle class="sk-joint" cx="275" cy="240" r="2" stroke="#00ffb4" stroke-width="0.8" fill="none"/>
+
+            <!-- HIPS -->
+            <line class="sk-bone" x1="160" y1="200" x2="120" y2="220" stroke="#00ffb4" stroke-width="1"/>
+            <circle class="sk-joint" cx="120" cy="220" r="4" stroke="#00ffb4" stroke-width="1" fill="none"/>
+            <line class="sk-bone" x1="160" y1="200" x2="200" y2="220" stroke="#00ffb4" stroke-width="1"/>
+            <circle class="sk-joint" cx="200" cy="220" r="4" stroke="#00ffb4" stroke-width="1" fill="none"/>
+            <text x="55" y="225" font-family="IBM Plex Mono" font-size="7" fill="rgba(0,255,180,0.5)">LHIP</text>
+            <text x="204" y="225" font-family="IBM Plex Mono" font-size="7" fill="rgba(0,255,180,0.5)">RHIP</text>
+
+            <!-- THIGHS -->
+            <line class="sk-bone" x1="120" y1="220" x2="112" y2="320" stroke="#00ffb4" stroke-width="1"/>
+            <circle class="sk-joint" cx="112" cy="320" r="4" stroke="#00ffb4" stroke-width="1" fill="none"/>
+            <line class="sk-bone" x1="200" y1="220" x2="208" y2="320" stroke="#00ffb4" stroke-width="1"/>
+            <circle class="sk-joint" cx="208" cy="320" r="4" stroke="#00ffb4" stroke-width="1" fill="none"/>
+
+            <!-- SHINS -->
+            <line class="sk-bone" x1="112" y1="320" x2="108" y2="415" stroke="#00ffb4" stroke-width="1"/>
+            <circle class="sk-joint" cx="108" cy="415" r="3.5" stroke="#00ffb4" stroke-width="1" fill="none"/>
+            <line class="sk-bone" x1="208" y1="320" x2="212" y2="415" stroke="#00ffb4" stroke-width="1"/>
+            <circle class="sk-joint" cx="212" cy="415" r="3.5" stroke="#00ffb4" stroke-width="1" fill="none"/>
+
+            <!-- FEET -->
+            <line class="sk-bone" x1="108" y1="415" x2="88" y2="438" stroke="#00ffb4" stroke-width="1"/>
+            <circle class="sk-joint" cx="88" cy="438" r="2.5" stroke="#00ffb4" stroke-width="0.8" fill="none"/>
+            <line class="sk-bone" x1="212" y1="415" x2="232" y2="438" stroke="#00ffb4" stroke-width="1"/>
+            <circle class="sk-joint" cx="232" cy="438" r="2.5" stroke="#00ffb4" stroke-width="0.8" fill="none"/>
+
+            <!-- vector annotations -->
+            <line x1="160" y1="130" x2="210" y2="105" stroke="rgba(255,200,0,0.4)" stroke-width="0.8" stroke-dasharray="3 3"/>
+            <circle cx="210" cy="105" r="2" fill="rgba(255,200,0,0.6)"/>
+            <text x="214" y="108" font-family="IBM Plex Mono" font-size="6" fill="rgba(255,200,0,0.6)">v(0.48, 0.87)</text>
+
+            <line x1="160" y1="165" x2="110" y2="148" stroke="rgba(255,200,0,0.4)" stroke-width="0.8" stroke-dasharray="3 3"/>
+            <circle cx="110" cy="148" r="2" fill="rgba(255,200,0,0.6)"/>
+            <text x="62" y="148" font-family="IBM Plex Mono" font-size="6" fill="rgba(255,200,0,0.6)">v(-0.33, 0.94)</text>
+
+            <!-- corner markers -->
+            <path d="M4 20 L4 4 L20 4" stroke="rgba(0,255,180,0.4)" stroke-width="1" fill="none"/>
+            <path d="M316 20 L316 4 L300 4" stroke="rgba(0,255,180,0.4)" stroke-width="1" fill="none"/>
+            <path d="M4 460 L4 476 L20 476" stroke="rgba(0,255,180,0.4)" stroke-width="1" fill="none"/>
+            <path d="M316 460 L316 476 L300 476" stroke="rgba(0,255,180,0.4)" stroke-width="1" fill="none"/>
+
+            <!-- bottom label -->
+            <text x="80" y="472" font-family="IBM Plex Mono" font-size="7" fill="rgba(0,255,180,0.3)">SKELETON_RIG · 26 JOINTS · FRAME_0001</text>
+          </svg>
+
+          <!-- floating data annotations -->
+          <div class="sk-annotation sk-ann-1">
+            <span class="ann-label">JOINT_COUNT</span>
+            <span class="ann-val">26</span>
+          </div>
+          <div class="sk-annotation sk-ann-2">
+            <span class="ann-label">SOLVER</span>
+            <span class="ann-val">IK_FULL</span>
+          </div>
         </div>
-        <div class="progress-track">
-          <div class="progress-fill"></div>
-          <div class="progress-marker" style="left: 33.3%">
-            <span class="marker-label">Hardware</span>
-          </div>
-          <div class="progress-marker" style="left: 66.6%">
-            <span class="marker-label">Software</span>
-          </div>
-          <div class="progress-marker" style="left: 100%">
-            <span class="marker-label">Studio</span>
-          </div>
+
+      </div><!-- /about-layout -->
+
+      <!-- spec table -->
+      <div class="spec-table reveal">
+        <div class="spec-row">
+          <span class="sr-key">CAPTURE_METHOD</span>
+          <div class="sr-bar"><div class="sr-fill" style="width:90%"></div></div>
+          <span class="sr-val">Optical · Infrared · Global Shutter</span>
+        </div>
+        <div class="spec-row">
+          <span class="sr-key">CAMERA_COUNT</span>
+          <div class="sr-bar"><div class="sr-fill" style="width:60%"></div></div>
+          <span class="sr-val">Multi-node · 120 fps</span>
+        </div>
+        <div class="spec-row">
+          <span class="sr-key">RECONSTRUCTION</span>
+          <div class="sr-bar"><div class="sr-fill" style="width:75%"></div></div>
+          <span class="sr-val">3D · Bundle Adjustment · Ceres</span>
+        </div>
+        <div class="spec-row">
+          <span class="sr-key">LATENCY_TARGET</span>
+          <div class="sr-bar"><div class="sr-fill" style="width:95%"></div></div>
+          <span class="sr-val">&lt; 8ms · UDP · Hardware Sync</span>
+        </div>
+        <div class="spec-row">
+          <span class="sr-key">STATUS</span>
+          <div class="sr-bar"><div class="sr-fill sr-fill-active" style="width:22%"></div></div>
+          <span class="sr-val sr-active">IN_DEVELOPMENT · PHASE 1</span>
         </div>
       </div>
 
     </div>
   </section>
 
-  <!-- WATCH SECTION -->
-  <section class="watch" id="watch">
+  <!-- ══ FOLLOW ══ -->
+  <section class="follow" id="follow">
     <div class="container">
 
-      <div class="section-label">
-        <span class="label-num">02</span>
-        <span class="label-text">FOLLOW THE BUILD</span>
+      <div class="section-head">
+        <span class="sh-num">02</span>
+        <span class="sh-slash">/</span>
+        <span class="sh-title">FOLLOW_THE_BUILD</span>
+        <div class="sh-line"></div>
       </div>
 
-      <div class="watch-grid">
-        <div class="watch-card">
-          <div class="watch-card-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <div class="follow-grid">
+
+        <div class="follow-card reveal">
+          <div class="fc-index">001</div>
+          <div class="fc-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <polygon points="5 3 19 12 5 21 5 3"/>
             </svg>
           </div>
-          <h3 class="watch-card-title">YouTube Series</h3>
-          <p class="watch-card-body">Building Motion Capture Alone — a documentary series on making professional-grade MoCap infrastructure from scratch.</p>
-          <span class="watch-card-tag">Coming Soon</span>
+          <h3 class="fc-title">BUILDING_MOCAP_ALONE</h3>
+          <p class="fc-body">A documentary series. Engineering a professional optical motion capture system from hardware to pipeline, in India, alone.</p>
+          <span class="fc-status">YouTube · Coming Soon</span>
         </div>
 
-        <div class="watch-card">
-          <div class="watch-card-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+        <div class="follow-card reveal reveal-delay-1">
+          <div class="fc-index">002</div>
+          <div class="fc-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="2" width="20" height="20" rx="5"/>
               <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
               <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
             </svg>
           </div>
-          <h3 class="watch-card-title">Behind the Build</h3>
-          <p class="watch-card-body">Process, experiments, and failures. Real documentation of the pipeline being assembled camera by camera, node by node.</p>
-          <span class="watch-card-tag">Instagram</span>
+          <h3 class="fc-title">PROCESS_LOG</h3>
+          <p class="fc-body">Real-time documentation. Failures, experiments, and discoveries from the build. Node by node, camera by camera.</p>
+          <span class="fc-status">Instagram · Active</span>
         </div>
+
       </div>
 
     </div>
   </section>
 
-  <!-- CONTACT -->
+  <!-- ══ CONTACT ══ -->
   <section class="contact" id="contact">
     <div class="container">
 
-      <div class="section-label">
-        <span class="label-num">03</span>
-        <span class="label-text">REACH OUT</span>
+      <div class="section-head">
+        <span class="sh-num">03</span>
+        <span class="sh-slash">/</span>
+        <span class="sh-title">REACH_OUT</span>
+        <div class="sh-line"></div>
       </div>
 
-      <div class="contact-grid">
-        <h2 class="contact-title">Let's talk<br />when you're ready.</h2>
-        <div class="contact-right">
-          <p class="contact-body">Collaborations, inquiries, or just curiosity about what's being built here — the line is open.</p>
-          <div class="contact-links">
-            <a href="mailto:hello@raydusk.com" class="contact-link">
-              <span class="contact-link-label">Email</span>
-              <span class="contact-link-arrow">→</span>
-            </a>
-            <a href="https://youtube.com" target="_blank" rel="noopener" class="contact-link">
-              <span class="contact-link-label">YouTube</span>
-              <span class="contact-link-arrow">→</span>
-            </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener" class="contact-link">
-              <span class="contact-link-label">Instagram</span>
-              <span class="contact-link-arrow">→</span>
-            </a>
-          </div>
+      <div class="contact-layout">
+        <div class="contact-left reveal">
+          <h2 class="contact-h">Input<br/><em>vector</em>.</h2>
+          <p class="contact-p">Collaborations, inquiries, or curiosity about what is being built. The channel is open.</p>
+        </div>
+        <div class="contact-right reveal reveal-delay-1">
+          <a href="mailto:hello@raydusk.com" class="cl-row">
+            <span class="cl-num">01</span>
+            <span class="cl-name">EMAIL</span>
+            <span class="cl-val">hello@raydusk.com</span>
+            <span class="cl-arrow">→</span>
+          </a>
+          <a href="https://youtube.com" target="_blank" rel="noopener" class="cl-row">
+            <span class="cl-num">02</span>
+            <span class="cl-name">YOUTUBE</span>
+            <span class="cl-val">@raydusk</span>
+            <span class="cl-arrow">→</span>
+          </a>
+          <a href="https://instagram.com" target="_blank" rel="noopener" class="cl-row">
+            <span class="cl-num">03</span>
+            <span class="cl-name">INSTAGRAM</span>
+            <span class="cl-val">@raydusk</span>
+            <span class="cl-arrow">→</span>
+          </a>
         </div>
       </div>
 
@@ -215,9 +372,9 @@
   <footer class="footer">
     <div class="container">
       <div class="footer-inner">
-        <span class="footer-logo">RAYDUSK</span>
-        <span class="footer-copy">© 2025 Raydusk Studio. All rights reserved.</span>
-        <span class="footer-coord">20.5937° N · 78.9629° E</span>
+        <span class="footer-logo">[RAYDUSK]</span>
+        <span class="footer-eq">ƒ(x,y,z) → skeleton → rig → render</span>
+        <span class="footer-coord">20.5937°N · 78.9629°E · 2025</span>
       </div>
     </div>
   </footer>

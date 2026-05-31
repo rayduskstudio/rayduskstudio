@@ -1,88 +1,227 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Raydusk Studio</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/components.css">
-    <script src="js/nav.js" defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Raydusk Studio</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
 </head>
 <body>
-    <!-- HEADER -->
-    <header>
-        <div class="logo">Raydusk</div>
-        <nav>
-            <a href="#home">Home</a>
-            <a href="#projects">Projects</a>
-            <a href="#research">Research</a>
-            <a href="#journal">Journal</a>
-            <a href="#about">About</a>
-            <a href="#contact">Contact</a>
-        </nav>
-    </header>
 
-    <!-- HERO SECTION -->
-    <section id="hero">
-        <video autoplay muted loop playsinline>
-            <source src="assets/videos/hero-loop.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        <div class="hero-content">
-            <h1>Raydusk</h1>
-            <p>Independent Studio for Motion Capture, Animation, and Visual Research</p>
-            <a href="#projects" class="enter-studio-btn">Enter Studio</a>
+  <!-- NOISE OVERLAY -->
+  <div class="noise" aria-hidden="true"></div>
+
+  <!-- SCAN LINE -->
+  <div class="scanline" aria-hidden="true"></div>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <a href="index.html" class="nav-logo">RAYDUSK</a>
+    <div class="nav-links">
+      <a href="#about" class="nav-link">About</a>
+      <a href="#contact" class="nav-link">Contact</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+
+    <div class="hero-bg" aria-hidden="true">
+      <div class="grid-lines"></div>
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="crosshair crosshair-tl"></div>
+      <div class="crosshair crosshair-br"></div>
+    </div>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="tag">EST. 2025</span>
+        <span class="divider" aria-hidden="true">—</span>
+        <span class="tag">INDIA</span>
+      </div>
+
+      <h1 class="hero-title">
+        <span class="line line-1">RAY</span>
+        <span class="line line-2">DUSK</span>
+      </h1>
+
+      <div class="hero-descriptor">
+        <span class="descriptor-text">VFX · MOTION CAPTURE · CG</span>
+      </div>
+
+      <p class="hero-sub">
+        A studio built from first principles.<br />
+        The work is loading.
+      </p>
+
+      <div class="hero-cta">
+        <a href="#about" class="btn-primary">Enter</a>
+        <div class="status-badge">
+          <span class="status-dot"></span>
+          <span>Building</span>
         </div>
-    </section>
+      </div>
+    </div>
 
-    <!-- PROJECTS -->
-    <section id="projects">
-        <h2>Projects</h2>
-        <div class="grid">
-            <div class="project">
-                <img src="assets/images/hero-bg.png" alt="Raydusk Mocap">
-                <h3>Raydusk Mocap</h3>
-                <p>Real-time facial and body capture tools</p>
-            </div>
-            <div class="project">
-                <img src="assets/images/hero-bg.png" alt="NitinisUnrealistic">
-                <h3>NitinisUnrealistic</h3>
-                <p>3D Animated Shorts</p>
-            </div>
-            <div class="project">
-                <img src="assets/images/hero-bg.png" alt="Procedural Slum Project">
-                <h3>DIY Motion Capture</h3>
-                <p>Making my own DIY Mocap suit and HMC for marker based performance capture</p>
-            </div>
+    <div class="hero-counter" aria-hidden="true">
+      <span class="counter-label">SEQUENCE</span>
+      <span class="counter-value" id="counter">001</span>
+    </div>
+
+    <div class="scroll-hint" aria-hidden="true">
+      <div class="scroll-line"></div>
+    </div>
+
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="container">
+
+      <div class="section-label">
+        <span class="label-num">01</span>
+        <span class="label-text">WHAT THIS IS</span>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-left">
+          <h2 class="about-title">Not a studio<br /><em>yet</em>.</h2>
         </div>
-    </section>
-
-    <!-- RESEARCH / JOURNAL -->
-    <section id="research">
-        <h2>Research / Journal</h2>
-        <div class="cards">
-            <div class="card">
-                <h3>Implementing Blender-like NDOF Camera in Qt</h3>
-                <p>Nov 2025</p>
+        <div class="about-right">
+          <p class="about-body">
+            Raydusk is being built — the hardware, the software, the pipeline. 
+            A professional optical motion capture system, engineered from the ground up. 
+            Everything you'll see here will be made, not bought.
+          </p>
+          <p class="about-body">
+            This page is a placeholder for something real.
+            The portfolio opens when the system is ready.
+          </p>
+          <div class="about-specs">
+            <div class="spec">
+              <span class="spec-label">Focus</span>
+              <span class="spec-value">Optical MoCap · VFX Pipeline</span>
             </div>
-            <div class="card">
-                <h3>Building an Optical Mocap Prototype</h3>
-                <p>Nov 2025</p>
+            <div class="spec">
+              <span class="spec-label">Location</span>
+              <span class="spec-value">India</span>
             </div>
+            <div class="spec">
+              <span class="spec-label">Status</span>
+              <span class="spec-value spec-active">In Development</span>
+            </div>
+          </div>
         </div>
-    </section>
+      </div>
 
-    <!-- ABOUT -->
-    <section id="about">
-        <h2>About</h2>
-        <p>Raydusk is an independent studio focused on motion capture, animation, and visual research. We strive to push the boundaries of creativity and technology.</p>
-        <img src="assets/images/hero-bg.png" alt="About Raydusk">
-    </section>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-label">
+          <span>System Progress</span>
+          <span>Phase 1 of 3</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill"></div>
+          <div class="progress-marker" style="left: 33.3%">
+            <span class="marker-label">Hardware</span>
+          </div>
+          <div class="progress-marker" style="left: 66.6%">
+            <span class="marker-label">Software</span>
+          </div>
+          <div class="progress-marker" style="left: 100%">
+            <span class="marker-label">Studio</span>
+          </div>
+        </div>
+      </div>
 
-    <!-- FOOTER -->
-    <footer>
-        <p>contact@raydusk.com</p>
-        <p>© 2025 Raydusk Studio</p>
-    </footer>
+    </div>
+  </section>
+
+  <!-- WATCH SECTION -->
+  <section class="watch" id="watch">
+    <div class="container">
+
+      <div class="section-label">
+        <span class="label-num">02</span>
+        <span class="label-text">FOLLOW THE BUILD</span>
+      </div>
+
+      <div class="watch-grid">
+        <div class="watch-card">
+          <div class="watch-card-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polygon points="5 3 19 12 5 21 5 3"/>
+            </svg>
+          </div>
+          <h3 class="watch-card-title">YouTube Series</h3>
+          <p class="watch-card-body">Building Motion Capture Alone — a documentary series on making professional-grade MoCap infrastructure from scratch.</p>
+          <span class="watch-card-tag">Coming Soon</span>
+        </div>
+
+        <div class="watch-card">
+          <div class="watch-card-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+            </svg>
+          </div>
+          <h3 class="watch-card-title">Behind the Build</h3>
+          <p class="watch-card-body">Process, experiments, and failures. Real documentation of the pipeline being assembled camera by camera, node by node.</p>
+          <span class="watch-card-tag">Instagram</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="container">
+
+      <div class="section-label">
+        <span class="label-num">03</span>
+        <span class="label-text">REACH OUT</span>
+      </div>
+
+      <div class="contact-grid">
+        <h2 class="contact-title">Let's talk<br />when you're ready.</h2>
+        <div class="contact-right">
+          <p class="contact-body">Collaborations, inquiries, or just curiosity about what's being built here — the line is open.</p>
+          <div class="contact-links">
+            <a href="mailto:hello@raydusk.com" class="contact-link">
+              <span class="contact-link-label">Email</span>
+              <span class="contact-link-arrow">→</span>
+            </a>
+            <a href="https://youtube.com" target="_blank" rel="noopener" class="contact-link">
+              <span class="contact-link-label">YouTube</span>
+              <span class="contact-link-arrow">→</span>
+            </a>
+            <a href="https://instagram.com" target="_blank" rel="noopener" class="contact-link">
+              <span class="contact-link-label">Instagram</span>
+              <span class="contact-link-arrow">→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <span class="footer-logo">RAYDUSK</span>
+        <span class="footer-copy">© 2025 Raydusk Studio. All rights reserved.</span>
+        <span class="footer-coord">20.5937° N · 78.9629° E</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
 </body>
 </html>
